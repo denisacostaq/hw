@@ -35,12 +35,15 @@ script:
   - make -C tiny-firmware/protob/nanopb/vendor/nanopb/generator/proto build-c
   - make test
   - make clean
+  - git status
   - make emulator
   - make clean
+  - git status
   - make full-firmware
   - md5sum tiny-firmware/bootloader/combine/*.bin
   - md5sum full-firmware-no-mem-protect.bin
   - make clean
+  - git status
   - if [[ $TRAVIS_TAG != '' ]]; then
     make release;
     VERSION_BOOTLOADER=$(cat tiny-firmware/bootloader/VERSION);

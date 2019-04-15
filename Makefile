@@ -16,16 +16,19 @@ PIPARGS  ?=
 MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 MKFILE_DIR  := $(dir $(MKFILE_PATH))
 
-VERSION_FIRMWARE_MAJOR  =$(shell ./ci-scripts/version/version_major.sh)
-VERSION_FIRMWARE_MINOR  =$(shell ./ci-scripts/version/version_minor.sh)
-VERSION_FIRMWARE_PATCH  =$(shell ./ci-scripts/version/version_patch.sh)
-VERSION_FIRMWARE        =$(VERSION_FIRMWARE_MAJOR).$(VERSION_FIRMWARE_MINOR).$(VERSION_FIRMWARE_PATCH)
-APPVER                  =v$(VERSION_FIRMWARE)
-
 VERSION_BOOTLOADER_MAJOR=$(shell cat tiny-firmware/bootloader/VERSION | cut -d. -f1 | cut -c 1 --complement)
 VERSION_BOOTLOADER_MINOR=$(shell cat tiny-firmware/bootloader/VERSION | cut -d. -f2)
 VERSION_BOOTLOADER_PATCH=$(shell cat tiny-firmware/bootloader/VERSION | cut -d. -f3)
 VERSION_BOOTLOADER      =$(VERSION_BOOTLOADER_MAJOR).$(VERSION_BOOTLOADER_MINOR).$(VERSION_BOOTLOADER_PATCH)
+VERSION_FIRMWARE_MAJOR  =$(shell ./ci-scripts/version/version_major.sh)
+VERSION_FIRMWARE_MINOR  =$(shell ./ci-scripts/version/version_minor.sh)
+VERSION_FIRMWARE_PATCH  =$(shell ./ci-scripts/version/version_patch.sh)
+VERSION_FIRMWARE        =$(VERSION_FIRMWARE_MAJOR).$(VERSION_FIRMWARE_MINOR).$(VERSION_FIRMWARE_PATCH)
+ifeq ($(VERSION_FIRMWARE),..)
+	VERSION_FIRMWARE    =$(shell cat tiny-firmware/VERSION | cut -c 1 --complement)
+endif
+APPVER                  =v$(VERSION_FIRMWARE)
+#$(error "VERSION_FIRMWARE=v$(VERSION_FIRMWARE), APPVER=$(APPVER), VERSION_FIRMWARE_MAJOR=$(VERSION_FIRMWARE_MAJOR), VERSION_FIRMWARE_MINOR=$(VERSION_FIRMWARE_MINOR), VERSION_FIRMWARE_PATCH=$(VERSION_FIRMWARE_PATCH)")
 
 ifeq ($(UNAME_S), Darwin)
 	LD_VAR=DYLD_LIBRARY_PATH
@@ -109,17 +112,17 @@ firmware-clean:
 
 release-bootloader:
 	if [ -z "$(shell echo $(VERSION_BOOTLOADER) | egrep '^[0-9]+\.[0-9]+\.[0-9]+$$' )" ]; then echo "Wrong bootloader version format"; exit 1; fi
-	VERSION_MAJOR=$(VERSION_BOOTLOADER_MAJOR) VERSION_MINOR=$(VERSION_BOOTLOADER_MINOR) VERSION_PATCH=$(VERSION_BOOTLOADER_PATCH) make bootloader
+	DEBUG=0 VERSION_MAJOR=$(VERSION_BOOTLOADER_MAJOR) VERSION_MINOR=$(VERSION_BOOTLOADER_MINOR) VERSION_PATCH=$(VERSION_BOOTLOADER_PATCH) make bootloader
 	mv bootloader-no-memory-protect.bin bootloader-no-memory-protect-v$(VERSION_BOOTLOADER).bin
 
 release-bootloader-mem-protect:
 	if [ -z "$(shell echo $(VERSION_BOOTLOADER) | egrep '^[0-9]+\.[0-9]+\.[0-9]+$$' )" ]; then echo "Wrong bootloader version format"; exit 1; fi
-	VERSION_MAJOR=$(VERSION_BOOTLOADER_MAJOR) VERSION_MINOR=$(VERSION_BOOTLOADER_MINOR) VERSION_PATCH=$(VERSION_BOOTLOADER_PATCH) make bootloader-mem-protect
+	DEBUG=0 VERSION_MAJOR=$(VERSION_BOOTLOADER_MAJOR) VERSION_MINOR=$(VERSION_BOOTLOADER_MINOR) VERSION_PATCH=$(VERSION_BOOTLOADER_PATCH) make bootloader-mem-protect
 	mv bootloader-memory-protected.bin bootloader-mem-protect-v$(VERSION_BOOTLOADER).bin
 
 release-firmware: check-version
 	if [ -z "$(shell echo $(VERSION_FIRMWARE) | egrep '^[0-9]+\.[0-9]+\.[0-9]+$$' )" ]; then echo "Wrong firmware version format"; exit 1; fi
-	VERSION_MAJOR=$(VERSION_FIRMWARE_MAJOR) VERSION_MINOR=$(VERSION_FIRMWARE_MINOR) VERSION_PATCH=$(VERSION_FIRMWARE_PATCH) make firmware
+	DEBUG=0 VERSION_MAJOR=$(VERSION_FIRMWARE_MAJOR) VERSION_MINOR=$(VERSION_FIRMWARE_MINOR) VERSION_PATCH=$(VERSION_FIRMWARE_PATCH) make firmware
 	mv tiny-firmware/skycoin.bin skycoin-v$(VERSION_FIRMWARE).bin
 
 release-combined: release-bootloader release-firmware
