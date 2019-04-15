@@ -8,7 +8,6 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-    - os: osx
 
 before_script:
   - sh "./tiny-firmware/protob/ci-scripts/install-${TRAVIS_OS_NAME}.sh" ;
@@ -32,15 +31,18 @@ before_script:
   - make install-linters
 script:
   - make lint
-  - make -C tiny-firmware/protob/nanopb/vendor/nanopb/generator/proto build-c
+  - make -C tiny-firmware/protob build-c
   - make test
   - make clean
+  - git status
   - make emulator
   - make clean
+  - git status
   - make full-firmware
   - md5sum tiny-firmware/bootloader/combine/*.bin
   - md5sum full-firmware-no-mem-protect.bin
   - make clean
+  - git status
   - if [[ $TRAVIS_TAG != '' ]]; then
     make release;
     VERSION_BOOTLOADER=$(cat tiny-firmware/bootloader/VERSION);
@@ -52,7 +54,7 @@ notifications:
 deploy:
   provider: releases
   api_key:
-    secure: TODO(denisacostaq@gmail.com): install travis cli tool and run `travis login` to get an api key
+    secure: ZIf1fa2VhCUP89lVXRnxK+fC9X4ReWB3Vxqy2iZRbucuVhTwLt/Cc0I/rTsmpAGhSl2uYNvdezXDYwE6omUFIqUUs2xOB1Lo2p2mXm+qUgkMN9DW77UwK4XTwNcdIir8jwJPUkANQJze3qyF6kmtZkYYZtOToQsiXFLz4ux/aNmIwUYOW2gZCYYF3z1MtEy3kpuekoV/QDX61UvlKBorM08ocYUzoNurc8tgQJcOqfMd0Fe0eFAduqtdhE42CzjnuMb5SN2GTHudGcY7fQG6vs4n6FaD12eucdA0zldnOvy5jziGr3j+yqdUyAK1Lhven167B38DcbphUtqFCJIjuWUw8OjQfvhBFZJWlfoM8+zenPZzyO6gV74zP8G9agBEuMrEJrTy0vxLsQpBFww+NLvMD5YrstmCobqs41U7gTO0Xgl9APpXzeM7Wkq9/82MMboj/aplXR1Y6FFYcfz+oAWJzfDq8YcT8TcEMydrTaLbqorfup12DL9s3RnbMZyRtnp11uYp+UyphiQzNj4uvVrJ/6kcW5WtNmF4MUKrTnwvi2T8xuf1v/Q2CIoF1pIqSpgm8j3zug45c1z3RxrAS8MKAFNmucKABQru44q1gOireDlFZNsHVajOUNyd0Y/WQKuSpGycB93QgoDIYtTE43Mkx6GPHnW+Rp7qnNkpOOk=
   file:
    - skycoin-${TRAVIS_TAG}.bin
    - bootloader-no-memory-protect-${VERSION_BOOTLOADER}.bin
@@ -63,5 +65,5 @@ deploy:
   skip_cleanup: true
   draft: true
   on:
-    repo: skycoin/hardware-wallet
+    repo: denisacostaq/hw
     tags: true
