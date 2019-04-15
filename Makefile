@@ -8,6 +8,7 @@
 .PHONY: release-combined release-combined-mem-protect
 
 UNAME_S ?= $(shell uname -s)
+
 PYTHON   ?= /usr/bin/python
 PIP      ?= pip
 PIPARGS  ?=
