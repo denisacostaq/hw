@@ -11,7 +11,7 @@ matrix:
  
 cache:
    directories:
-	- /home/travis/.rvm/tiny-firmware/vendor/libopencm3/
+	- /home/travis/tiny-firmware/vendor/libopencm3/
 
 before_script:
   - sh "./tiny-firmware/protob/ci-scripts/install-${TRAVIS_OS_NAME}.sh" ;
