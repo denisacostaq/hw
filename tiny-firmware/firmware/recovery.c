@@ -308,6 +308,7 @@ static void next_matrix(void) {
 	uint32_t idx, num = 0;
 	bool last = (word_index % 4) == 3;
 
+	num = 9;
 	/* Build the matrix:
 	 * num: number of choices
 	 * word_choices[][]: the strings containing the choices
