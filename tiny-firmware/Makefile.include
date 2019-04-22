@@ -23,6 +23,7 @@ else
 	OPTFLAGS ?= -O3
 	DBGFLAGS ?= -DDNDEBUG
 endif
+#$(error "1111111 OPTFLAGS=$(OPTFLAGS), DBGFLAGS=$(DBGFLAGS"))
 CPUFLAGS ?=
 FPUFLAGS ?=
 ifeq ($(UNAME_S),Darwin)
