@@ -9,9 +9,9 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
  
-cache:
-   directories:
-	- /home/travis/tiny-firmware/vendor/libopencm3/
+#cache:
+#   directories:
+#	- /home/travis/tiny-firmware/vendor/libopencm3/
 
 before_script:
   - sh "./tiny-firmware/protob/ci-scripts/install-${TRAVIS_OS_NAME}.sh" ;
