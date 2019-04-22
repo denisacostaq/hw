@@ -8,7 +8,7 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
- 
+
 #cache:
 #   directories:
 #	- /home/travis/tiny-firmware/vendor/libopencm3/
