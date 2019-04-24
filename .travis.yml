@@ -50,6 +50,7 @@ script:
     cp emulator releases/emulator-${TRAVIS_OS_NAME}-${TRAVIS_TAG};
     ls releases/*;
     fi
+  - ls releases/*
 notifications:
   # https://github.com/kvld/travisci-telegram TravisCI Telegram Bot integration
   webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
