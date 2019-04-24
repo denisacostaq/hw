@@ -32,9 +32,6 @@ before_script:
   - make install-linters
 script:
   - ls -l
-  - ls echo aa > releases/aas
-  - ls releases/*;
-  - exit 1
   - make lint
   - make -C tiny-firmware/protob build-c
   - make test
@@ -52,8 +49,10 @@ script:
     make clean;
     make emulator;
     cp emulator releases/emulator-${TRAVIS_OS_NAME}-${TRAVIS_TAG};
-    ls releases/*;
+    ls releases/;
     fi
+  - ls releases/
+  - echo aa > releases/aas
   - ls releases/*
 notifications:
   # https://github.com/kvld/travisci-telegram TravisCI Telegram Bot integration
