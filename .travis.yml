@@ -47,7 +47,7 @@ script:
     export COMBINED_VERSION=${VERSION_BOOTLOADER}-${TRAVIS_TAG}-${ID_VENDOR}-${ID_PRODUCT}-${LANG};
     make clean;
     make emulator;
-    cp emulator release/emulator-${TRAVIS_OS_NAME}-${TRAVIS_TAG};
+    cp emulator releases/emulator-${TRAVIS_OS_NAME}-${TRAVIS_TAG};
     fi
 notifications:
   # https://github.com/kvld/travisci-telegram TravisCI Telegram Bot integration
@@ -58,13 +58,13 @@ deploy:
   api_key:
     secure: vG42CO+JU1gGv2mFl9EIgzHh5f17ceTs9nHJzL2JTGs5bWkMVsaeVB235wHjMsYZ0uQ1DEhk0eoYCq2cS8pl/Q/8TYufSKo0XiSv6ySPUIzYi4YDkAfMnuXlNlP5Adm9UeI+jISp14sbjnHXTD+pBIalAOCaebqGQBtSvIwAkwOnG4arubDiNIoho/q/vHkLRaqiGkgP7pnujtCb1Z4OQCro9FOpMaNcNXsG7LGuabdtvMpzFlzRmvrSzPJiF7f8Db+LjcBkuneeacIg/Bgpd1X2i98Tv9Ytv8IIsd0WrCfKgTp/YYxDS0u1Bn25EGomac0gSvXiYJ1hDtqn58AY1AXuM5ibVJAu5JOBgGqTkRvrLN4WFoRIrUW10i8ArsVxPh5lWJvtjkYNDMtFhHVBCpTyNnTR/OSLGTkRGYBWuoJRW8h3bR6fmP7WrGyVhKIOgklmv6cPGTI6wUAk5KMvFCpHbhATfkTXVj3f0aZEwae7Eho5KgAIPsnKkZlNEq0y+GMj1LMdEE5Leb78gT7dC5R7p/0YD43WPL/YIA3sBAVFYdE0YTa/0jYn5SBFStGskV8vwGwtRopoV4DR6sGfg5SY6ctM5HVAczcm456k1t8rLmSdZ47XZFvcjg5YgV7Eo2D/1IYpAIKlnnfQ0jklcw6tTd6uWDCf1Te4n70hLok=
   file:
-   - release/skyfirmware-${TRAVIS_TAG}.bin
-   - release/skyfirmware-${TRAVIS_TAG}.bin.asc
-   - release/skywallet-full-no-mem-protect-${COMBINED_VERSION}.bin
-   - release/skywallet-full-no-mem-protect-${COMBINED_VERSION}.bin.asc
-   - release/skywallet-full-mem-protect-${COMBINED_VERSION}.bin
-   - release/skywallet-full-mem-protect-${COMBINED_VERSION}.bin.asc
-   - release/emulator-${TRAVIS_OS_NAME}-${TRAVIS_TAG}
+   - releases/skyfirmware-${TRAVIS_TAG}.bin
+   - releases/skyfirmware-${TRAVIS_TAG}.bin.asc
+   - releases/skywallet-full-no-mem-protect-${COMBINED_VERSION}.bin
+   - releases/skywallet-full-no-mem-protect-${COMBINED_VERSION}.bin.asc
+   - releases/skywallet-full-mem-protect-${COMBINED_VERSION}.bin
+   - releases/skywallet-full-mem-protect-${COMBINED_VERSION}.bin.asc
+   - releases/emulator-${TRAVIS_OS_NAME}-${TRAVIS_TAG}
   skip_cleanup: true
   draft: true
   on:
@@ -74,7 +74,7 @@ deploy:
   api_key:
     secure: vG42CO+JU1gGv2mFl9EIgzHh5f17ceTs9nHJzL2JTGs5bWkMVsaeVB235wHjMsYZ0uQ1DEhk0eoYCq2cS8pl/Q/8TYufSKo0XiSv6ySPUIzYi4YDkAfMnuXlNlP5Adm9UeI+jISp14sbjnHXTD+pBIalAOCaebqGQBtSvIwAkwOnG4arubDiNIoho/q/vHkLRaqiGkgP7pnujtCb1Z4OQCro9FOpMaNcNXsG7LGuabdtvMpzFlzRmvrSzPJiF7f8Db+LjcBkuneeacIg/Bgpd1X2i98Tv9Ytv8IIsd0WrCfKgTp/YYxDS0u1Bn25EGomac0gSvXiYJ1hDtqn58AY1AXuM5ibVJAu5JOBgGqTkRvrLN4WFoRIrUW10i8ArsVxPh5lWJvtjkYNDMtFhHVBCpTyNnTR/OSLGTkRGYBWuoJRW8h3bR6fmP7WrGyVhKIOgklmv6cPGTI6wUAk5KMvFCpHbhATfkTXVj3f0aZEwae7Eho5KgAIPsnKkZlNEq0y+GMj1LMdEE5Leb78gT7dC5R7p/0YD43WPL/YIA3sBAVFYdE0YTa/0jYn5SBFStGskV8vwGwtRopoV4DR6sGfg5SY6ctM5HVAczcm456k1t8rLmSdZ47XZFvcjg5YgV7Eo2D/1IYpAIKlnnfQ0jklcw6tTd6uWDCf1Te4n70hLok=
   file:
-   - release/emulator-${TRAVIS_OS_NAME}-${TRAVIS_TAG}
+   - releases/emulator-${TRAVIS_OS_NAME}-${TRAVIS_TAG}
   skip_cleanup: true
   draft: true
   on:
