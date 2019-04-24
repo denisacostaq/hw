@@ -67,7 +67,7 @@ deploy:
   skip_cleanup: true
   draft: true
   on:
-    repo: skycoin/hardware-wallet
+    repo: denisacostaq/hw
     tags: true
 - provider: releases
   api_key:
@@ -77,6 +77,6 @@ deploy:
   skip_cleanup: true
   draft: true
   on:
-    repo: skycoin/hardware-wallet
+    repo: denisacostaq/hw
     tags: true
     condition: $TRAVIS_OS_NAME = "osx"
