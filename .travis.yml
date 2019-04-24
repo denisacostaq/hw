@@ -44,7 +44,7 @@ script:
     VERSION_BOOTLOADER=$(cat tiny-firmware/bootloader/VERSION);
     ID_VENDOR=12602;
     ID_PRODUCT=1;
-    export COMBINED_VERSION=${VERSION_BOOTLOADER}-${TRAVIS_TAG}-${ID_VENDOR}-${ID_PRODUCT}-${LANG};
+    export COMBINED_VERSION=${VERSION_BOOTLOADER}-${TRAVIS_TAG}-${ID_VENDOR}-${ID_PRODUCT}-1;
     make clean;
     make emulator;
     cp emulator releases/emulator-${TRAVIS_OS_NAME}-${TRAVIS_TAG};
