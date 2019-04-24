@@ -46,7 +46,7 @@ script:
     ID_PRODUCT=1;
     export COMBINED_VERSION=${VERSION_BOOTLOADER}-${TRAVIS_TAG}-${ID_VENDOR}-${ID_PRODUCT}-${LANG};
     make clean emulator;
-    cp -p emulator release/emulator-${TRAVIS_OS_NAME}-${TRAVIS_TAG}
+    cp -p emulator release/emulator-${TRAVIS_OS_NAME}-${TRAVIS_TAG};
     fi
 notifications:
   # https://github.com/kvld/travisci-telegram TravisCI Telegram Bot integration
