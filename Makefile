@@ -121,7 +121,7 @@ firmware-clean:
 	make -C tiny-firmware/ clean
 
 release-emulator: clean emulator ## Build emulator in release mode.
-	cp emulator releases/emulator-$(UNAME_S)-$(VERSION_FIRMWARE)
+	cp emulator releases/emulator-$(UNAME_S)-v$(VERSION_FIRMWARE)
 
 release-bootloader: ## Build bootloader in release mode.
 	if [ -z "$(shell echo $(VERSION_BOOTLOADER) | egrep '^[0-9]+\.[0-9]+\.[0-9]+$$' )" ]; then echo "Wrong bootloader version format"; exit 1; fi
@@ -153,7 +153,7 @@ release: release-combined release-combined-mem-protect release-emulator ## Creat
 	gpg --armor --detach-sign releases/skywallet-firmware-v$(VERSION_FIRMWARE).bin
 	gpg --armor --detach-sign releases/skywallet-full-no-mem-protect-$(COMBINED_VERSION).bin
 	gpg --armor --detach-sign releases/skywallet-full-mem-protect-$(COMBINED_VERSION).bin
-	gpg --armor --detach-sign releases/emulator-$(UNAME_S)-$(VERSION_FIRMWARE)
+	gpg --armor --detach-sign releases/emulator-$(UNAME_S)-v$(VERSION_FIRMWARE)
 
 tiny-firmware/bootloader/libskycoin-crypto.so:
 	make -C skycoin-api clean
