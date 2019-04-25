@@ -32,7 +32,6 @@ before_script:
   - make install-linters
 
 script:
-  - ls -l
   - make verify-protob-hash
   - make lint
   - make -C tiny-firmware/protob build-c
@@ -48,14 +47,7 @@ script:
     ID_VENDOR=12602;
     ID_PRODUCT=1;
     export COMBINED_VERSION=${VERSION_BOOTLOADER}-${TRAVIS_TAG}-${ID_VENDOR}-${ID_PRODUCT}-1;
-    make clean;
-    make emulator;
-    cp emulator releases/emulator-${TRAVIS_OS_NAME}-${TRAVIS_TAG};
-    ls releases/;
     fi
-  - ls releases/
-  - echo aa > releases/aas
-  - ls releases/*
 notifications:
   # https://github.com/kvld/travisci-telegram TravisCI Telegram Bot integration
   webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
